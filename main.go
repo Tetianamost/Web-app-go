@@ -54,6 +54,15 @@ func init() {
 		log.Fatal(err)
 	}
 }
+func getNextID() int {
+	highestID := -1
+	for _, product := range productList {
+		if highestID < product.ProductID {
+			highestID = product.ProductID
+		}
+	}
+	return highestID + 1
+}
 
 func productsHandler(w http.ResponseWriter, r *http.Request) {
 	switch r.Method {
@@ -82,6 +91,10 @@ func productsHandler(w http.ResponseWriter, r *http.Request) {
 			w.WriteHeader(http.StatusBadRequest)
 			return
 		}
+		newProduct.ProductID = getNextID()
+		productList = append(productList, newProduct)
+		w.WriteHeader(http.StatusCreated)
+		return
 	}
 }
 
