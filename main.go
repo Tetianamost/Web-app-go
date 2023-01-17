@@ -10,5 +10,5 @@ const apiBasePath = "/api"
 
 func main() {
 	product.SetupRoutes(apiBasePath)
-	http.ListenAndServe(":8000", nil)
+	http.ListenAndServe(":5000", nil)
 }
